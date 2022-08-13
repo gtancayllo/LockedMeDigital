@@ -2,8 +2,20 @@ package Algorithms;
 
 import java.util.List;
 
+/**
+ * class that represents the search algorithms to use in the application
+ * @param <T> class type that handles comparable
+ */
 public class SearchAlgorithms<T extends Comparable<T>>
 {
+    /**
+     * binary search algorithm
+     * @param list list of elements to be sorted
+     * @param l lower bound
+     * @param r upper bound
+     * @param x element to search
+     * @return position found
+     */
     public int binarySearch(List<T> list, int l, int r, T x)
     {
         if (r>=l)
@@ -29,5 +41,4 @@ public class SearchAlgorithms<T extends Comparable<T>>
         //  in array
         return -1;
     }
-
 }

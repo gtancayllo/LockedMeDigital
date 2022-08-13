@@ -18,12 +18,21 @@ public class FileManagement {
      */
     Scanner scanner;
     /**
-     * constant for the root directory
+     * constant for the root directory folder name
      */
     public static String ROOT_DIR = "RootDirectory";
+    /**
+     * directory object representing the main folder
+     */
     private Directory rootDirectory;
+    /**
+     * object to help read a file structure from disk
+     */
     File rootFolder = new File(ROOT_DIR);
 
+    /**
+     * driver class constructor
+     */
     public FileManagement() {
         try {
             scanner = new Scanner(System.in);
@@ -34,6 +43,9 @@ public class FileManagement {
         }
     }
 
+    /**
+     * method that initializes the application file structure
+     */
     public void readFilesDirectories() {
         try{
             File[] files = rootFolder.listFiles();
@@ -49,6 +61,11 @@ public class FileManagement {
         }
     }
 
+    /**
+     * method that handles the insertion of a file into the file structure
+     * @param fileName name of the file to add
+     * @throws BusinessException business error
+     */
     public void addFile(String fileName) throws BusinessException {
         List<FileStructure.File> fileList = rootDirectory.getListFiles();
         new SortingAlgorithms<FileStructure.File>().quicksort(fileList,0,fileList.size()-1);
@@ -60,6 +77,11 @@ public class FileManagement {
             throw new BusinessException(String.format("The file %s already exists",fileName));
     }
 
+    /**
+     * method that handles the deletion of a file
+     * @param fileName name of the file to delete
+     * @throws BusinessException business error
+     */
     public void deleteFile(String fileName) throws BusinessException {
         List<FileStructure.File> fileList = rootDirectory.getListFiles();
         new SortingAlgorithms<FileStructure.File>().quicksort(fileList,0,fileList.size()-1);
@@ -73,6 +95,10 @@ public class FileManagement {
             throw new BusinessException(String.format("The file %s doesn't exists and it can't be deleted.",fileName));
     }
 
+    /**
+     * method that handles searching a file from the file structure
+     * @param fileName name of the file to find
+     */
     public void searchFile(String fileName){
         List<FileStructure.File> fileList = rootDirectory.getListFiles();
         new SortingAlgorithms<FileStructure.File>().quicksort(fileList,0,fileList.size()-1);
@@ -83,6 +109,10 @@ public class FileManagement {
             System.out.printf("\nThe fileName '%s' doesn't exist.",fileName);
     }
 
+    /**
+     * method that represents the UI for adding a file
+     * @throws BusinessException business error
+     */
     public void promptAddFile() throws BusinessException {
         System.out.println("Please specify the fileName to add: ");
         String fileName = scanner.nextLine();
@@ -90,6 +120,10 @@ public class FileManagement {
         promptManagement();
     }
 
+    /**
+     * method that represents the UI for deleting a file
+     * @throws BusinessException business error
+     */
     public void promptDeleteFile() throws BusinessException {
         System.out.println("Please specify the fileName to delete: ");
         String fileName = scanner.nextLine();
@@ -97,6 +131,9 @@ public class FileManagement {
         promptManagement();
     }
 
+    /**
+     * method that represents the UI for searching a file
+     */
     public void promptSearchFile(){
         System.out.println("Please specify the fileName to find: ");
         String fileName = scanner.nextLine();
@@ -104,12 +141,20 @@ public class FileManagement {
         promptManagement();
     }
 
+    /**
+     * method that represents the UI to list files and directories
+     * @param sorting flag that represents how the files are going to be shown (sorted or not)
+     */
     public void promptListFiles(boolean sorting) {
         System.out.println();
         listAll(sorting);
         promptMenu();
     }
 
+    /**
+     * method that retrieves the list of files and directories
+     * @param sorting flag that represents how the files are going to be shown (sorted or not)
+     */
     public void listAll(boolean sorting)
     {
         List<FileStructure.File> fileList = rootDirectory.getListFiles();
@@ -131,6 +176,9 @@ public class FileManagement {
         System.out.println();
     }
 
+    /**
+     * method that represents the UI for prompting the options for the user
+     */
     public void readOptions()  {
         String option = scanner.nextLine();
         switch (option) {
@@ -151,6 +199,9 @@ public class FileManagement {
         }
     }
 
+    /**
+     * method that handles the ending of the application
+     */
     public void exitProgram() {
         System.out.println("The LockMe Digital software has ended. Thank you");
         // deallocate resources before exit
@@ -159,6 +210,9 @@ public class FileManagement {
         System.exit(0);
     }
 
+    /**
+     * method that shows the main options of the application
+     */
     public void showMenu()
     {
         System.out.printf("Application :  LockedMe Digitalization");
@@ -172,6 +226,10 @@ public class FileManagement {
         System.out.printf("\n\nSelect an option from the menu:");
     }
 
+    /**
+     * method that handles the UI for the management options
+     * @throws BusinessException
+     */
     public void readManagementOptions() throws BusinessException {
         String option = scanner.nextLine();
         switch (option) {
@@ -192,6 +250,9 @@ public class FileManagement {
         }
     }
 
+    /**
+     * method that prompts the main options of the application
+     */
     public void promptMenu() {
         showMenu();
         try {
@@ -202,6 +263,9 @@ public class FileManagement {
         }
     }
 
+    /**
+     * method that prompts the management options of the application
+     */
     public void promptManagement() {
         showManagement();
         try {
@@ -212,6 +276,9 @@ public class FileManagement {
         }
     }
 
+    /**
+     * method that shows the management options of the application
+     */
     public void showManagement(){
         System.out.printf("\n\nOption Management");
         System.out.printf("\n-------------------");
@@ -222,6 +289,10 @@ public class FileManagement {
         System.out.printf("\n\nSelect an option from the menu:");
     }
 
+    /**
+     * bootstrap method of the application
+     * @param args application arguments
+     */
     public static void main(String[] args){
         FileManagement fileManagement = new FileManagement();
         fileManagement.promptMenu();

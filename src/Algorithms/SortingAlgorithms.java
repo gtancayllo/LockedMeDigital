@@ -2,7 +2,17 @@ package Algorithms;
 
 import java.util.List;
 
+/**
+ * class that handles sorting algorithms
+ * @param <T> class type in which the sorting algorithms will be applied
+ */
 public class SortingAlgorithms<T extends Comparable<T>>  {
+    /**
+     * quick sort algorithm
+     * @param list list to be sorted
+     * @param startIndex starting index
+     * @param endIndex ending index
+     */
     public void quicksort(List<T> list, int startIndex, int endIndex)
     {
         // verify that the start and end index have not overlapped
@@ -16,6 +26,14 @@ public class SortingAlgorithms<T extends Comparable<T>>  {
             quicksort(list, pivotIndex + 1, endIndex);
         }
     }
+
+    /**
+     * method that handles the partition of the search space to lookup
+     * @param list list of elements
+     * @param startIndex starting index
+     * @param endIndex ending index
+     * @return the pivot from which the quicksort algorithm is going to work
+     */
     private int partition(List<T> list, int startIndex, int endIndex)
     {
         int pivotIndex = (startIndex + endIndex) / 2;
